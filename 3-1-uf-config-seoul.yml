@@ -10,6 +10,6 @@
 #    - prereqs
 
 - name: Configure Splunk Universal Forwarder
-  hosts: {{ jukov_inventort_host_group }}
+  hosts: {{ seoul_inventort_host_group }}
   roles:
     - uf-config-seoul
