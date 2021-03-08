@@ -1,0 +1,13 @@
+---
+- hosts: all
+
+  tasks:
+  - name: Checking if Splunk process is running
+    shell: pgrep splunkd |wc -l
+    changed_when: False
+    register: check_splunk_value
+    failed_when: check_splunk_value.stdout|int < 1
+
+#  - name: Show captured processes
+#    debug:
+#      var: check_splunk_value.stdout

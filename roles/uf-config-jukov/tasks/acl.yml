@@ -1,0 +1,49 @@
+- name: Grant user {{ os_user }} read access to /var/log/secure file
+  acl:
+    path: /var/log/secure
+    entity: "{{ os_user }}"
+    etype: user
+    permissions: r
+    state: present
+  become: yes
+
+- name: Sets default acl for {{ os_user }}  on /var/log
+  acl:
+    path: /var/log
+    entity: "{{ os_user }}"
+    etype: user
+    permissions: rx
+    default: yes
+    recursive: yes
+    state: present
+  become: yes
+
+- name: Grant user {{ os_user }} enter access to /var/log directory
+  acl:
+    path: /var/log
+    entity: "{{ os_user }}"
+    etype: user
+    permissions: r-x
+    recursive: yes
+    state: present
+  become: yes
+
+#- name: Grant user {{ os_user }} read access to all file of /var/log/ directory
+#  acl:
+#    path: /var/log/
+#    entity: "{{ os_user }}"
+#    etype: user
+#    permissions: r
+#    recursive: yes
+#    state: present
+#  become: yes
+
+#  vars:
+#    logfile: "/var/log/audit/audit.log"
+#- name: Grant user {{ os_user }} read access to /var/log/* file
+#  acl:
+#    path: "/{{ logfile.split('/')[1:index+2] | join('/') }}"
+#        # <snip>
+#    loop: "{{ logfile.split('/')[1:] }}"
+#    loop_control:
+#        index_var: index

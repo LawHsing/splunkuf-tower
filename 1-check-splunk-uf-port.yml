@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+  - name: Checking if default port of Splunk Universal Forwarder is opened
+    wait_for:
+      port: 8089
+#      state: started         # Will ensure the port is open
+      state: stopped         # Will check that is it closed
+      delay: 0               # No wait before first check (sec)
+      timeout: 3             # Stop checking after timeout (sec)
+

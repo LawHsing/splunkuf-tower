@@ -1,0 +1,61 @@
+---
+- name: -UF- Create {{ splunk_uf_home }}/{{ seoul_ds_appname }}/local directory
+  file:
+    path: "{{ splunk_uf_home }}/etc/apps/{{ seoul_ds_appname }}/local"
+    state: directory
+    mode: 0755
+    owner: "{{ os_user }}"
+    group: "{{ os_group }}"
+  become: yes
+
+- name: -UF- Create {{ splunk_uf_home }}/{{ seoul_ds_appname }}/metadata directory
+  file:
+    path: "{{ splunk_uf_home }}/etc/apps/{{ seoul_ds_appname }}/metadata"
+    state: directory
+    mode: 0755
+    owner: "{{ os_user }}"
+    group: "{{ os_group }}"
+  become: yes
+
+- name: -UF- Create app.conf of {{ seoul_ds_appname }} App
+  template:
+    src: app.conf.j2
+    dest: "{{ splunk_uf_home }}/etc/apps/{{ seoul_ds_appname }}/local/app.conf"
+  become: yes
+
+- name: -UF- Create deploymentclient.conf of {{ seoul_ds_appname }} App
+  template:
+    src: deploymentclient.conf.j2
+    dest: "{{ splunk_uf_home }}/etc/apps/{{ seoul_ds_appname }}/local/deploymentclient.conf"
+  become: yes
+
+- name: -UF- Create local.meta of {{ seoul_ds_appname }} App
+  template:
+    src: local.meta.j2
+    dest: "{{ splunk_uf_home }}/etc/apps/{{ seoul_ds_appname }}/metadata/local.meta"
+  become: yes
+
+- name: Set {{ splunk_uf_home }} owner & group recursively
+  file:
+    path: "{{ splunk_uf_home }}"
+    state: directory
+    owner: "{{ os_user }}"
+    group: "{{ os_group }}"
+    recurse: yes
+  become: yes
+
+#- name: -UF- Create outputs.conf for default log forwarding
+#  template:
+#    src: outputs.conf.j2
+#    dest: "{{ splunk_uf_home }}/etc/system/local/outputs.conf"
+#  become: yes
+#
+#- name: -DS- Set the deployment server name or IP
+#  command: "{{ splunk_uf_home }}/bin/splunk set deploy-poll {{ uf_deploy_server_address }}:{{ uf_deploy_server_port }} -auth {{ splunk_uf_user }}:{{ splunk_uf_pass }}"
+#  become: yes  
+#  become_user: "{{ os_user }}"
+
+- name: -initd- Restart Splunk UF
+  command: "{{ splunk_uf_home }}/bin/splunk restart"
+  become: yes  
+  become_user: "{{ os_user }}"

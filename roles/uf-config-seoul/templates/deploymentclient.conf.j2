@@ -1,0 +1,8 @@
+[deployment-client]
+# Set the phoneHome at the end of the PS engagement
+# 1 minutes
+phoneHomeIntervalInSecs = 60
+
+[target-broker:deploymentServer]
+# Change the targetUri
+targetUri = {{ seoul_uf_deploy_server_address }}:{{ uf_deploy_server_port }}

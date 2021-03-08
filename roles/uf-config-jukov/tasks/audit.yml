@@ -1,0 +1,20 @@
+#- name: Modify /etc/audit/auditd.conf
+#  lineinfile:
+#    path: /etc/audit/auditd.conf
+#    regexp: '^log_group = root'
+#    line: log_group = splunk
+#  become: yes
+
+- name: Modify /etc/audit/auditd.conf
+  replace:
+    path: /etc/audit/auditd.conf
+    regexp: 'log_group = root'
+    replace: 'log_group = splunk'
+    backup: yes
+  become: yes
+
+- name: Restart Auditd
+  command: /usr/sbin/service auditd restart
+  args:
+    warn: false
+  become: yes

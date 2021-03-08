@@ -1,0 +1,55 @@
+
+#========================================
+# Ansible, OS, & Splunk Config Variables 
+#========================================
+#
+# Change These:
+# (Username / password type variables that should be changed)
+
+# Remote host username, password, enable password, and SSH private key file (default method)
+#   If one of ssh_pass, become_pass (sudo), and private_key are not needed, 
+#   comment them out based on your authentication method.
+ansible_user: ansible
+ansible_ssh_pass: 1qaz@WSX
+ansible_become_pass: 1qaz@WSX
+#ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
+# Ansible connection defaults
+#ansible_connection: smart
+#ansible_port: 22
+# Username and password for Splunk Universal Forwarder admin user
+#   (used during initial install, not during upgrade)
+splunk_uf_user: admin
+splunk_uf_pass: admin123
+
+# Whether to download (wget) the tgz installer from Splunk (true, default)
+#   or upload the tgz from the ./files/ directory of this project (false)
+download_uf_tgz_from_splunk_servers: false
+
+# User and group that will run splunkd on the OS and own Splunk files
+os_user: splunk
+os_group: splunk
+
+# $SPLUNK_HOME path
+splunk_uf_home: /opt/splunkforwarder
+
+# Universal Forwarder Configuration Settings
+# (These settings impact how the UF is configured in uf-config.yml.)
+#
+
+# -UF DS- The address of the deployment server (IP or FQDN).
+seoul_uf_deploy_server_address: 192.168.19.46
+jukov_uf_deploy_server_address: 192.168.16.205
+
+# -UF DS- The port of the deployment server (defaults to 8089).
+uf_deploy_server_port: 8089
+
+# -UF DS- The directory of the deployment server
+seoul_ds_appname: kb_all_seoul_deploymentclient_base
+jukov_ds_appname: kb_all_jukov_deploymentclient_base
+
+# Splunk Universal Forwarder Version Selector
+splunk_uf_version: 8.1.1
+splunk_uf_tgz: splunkforwarder-8.1.1-08187535c166-Linux-x86_64.tgz
+splunk_uf_tgz_checksum: 02e4a43e85fa96923e3a6ef652c85ed3
+
