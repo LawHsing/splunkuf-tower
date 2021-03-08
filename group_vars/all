@@ -15,8 +15,13 @@ ansible_become_pass: 1qaz@WSX
 #ansible_ssh_private_key_file: ~/.ssh/id_rsa
 
 # Ansible connection defaults
-#ansible_connection: smart
-#ansible_port: 22
+ansible_connection: smart
+ansible_port: 22
+
+# Configure the host group name of inventory in two sites
+seoul_inventort_host_group: seoulufhosts
+jukov_inventort_host_group: jukovufhosts
+
 # Username and password for Splunk Universal Forwarder admin user
 #   (used during initial install, not during upgrade)
 splunk_uf_user: admin
